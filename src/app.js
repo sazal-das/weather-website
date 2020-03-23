@@ -6,7 +6,7 @@ const forecast = require('./utile/forecast.js');
 const chalk = require('chalk');
 
 const app = express();
-
+const port = process.env.PORT || 3000;
 // app.get('',(req,res)=>{
 //     res.send('<h1>Weather</h1>');
 // })
@@ -103,7 +103,7 @@ app.get('*',(req,res)=>{
 
 
 
-app.listen(3000, ()=>{
-    console.log('Server is running in 3000 port');
+app.listen(port, ()=>{
+    console.log('Server is running in '+ port);
     
 })
