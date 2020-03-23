@@ -21,8 +21,6 @@ const app = express();
 //     res.send('<h1>About</h1>');
 // })
 
-
-
 app.get('/products',(req,res)=>{
     console.log(req.query);
     
