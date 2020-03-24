@@ -6,6 +6,7 @@
     <title>Weather</title>
     <link rel="icon" href="./img/weather-icon.png">
     <link rel="stylesheet" href="./CSS/style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     
 </head>
 <body>
@@ -13,6 +14,50 @@
         {{>header}}
 
         <p>Here by using this site you can get the weather update.</p>
+        <h3>Your Current Location Temperature: </h3>
+        <h2 id="temp">Temperature</h2>
+        <p id="timezone">Summary</p>
+
+        <script type="text/javascript">
+            var tz = $("#timezone");
+            var t = $("#temp");
+            var url = "";
+
+            function getLocation() {
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(showPosition);
+                } else {
+                    currentLoc.html("Geolocation is not supported by this browser.");
+                }
+            }
+
+            function showPosition(position) {
+                var lat = position.coords.latitude;
+                var long = position.coords.longitude;
+
+
+                url = "https://api.darksky.net/forecast/dbebf25ca92105536e601c6242e4137a/" + lat + "," + long+"?units=si";
+                getTodaysWeather(url);
+            }
+
+            function getTodaysWeather(url) {
+                $.ajax({
+                    url:url,
+                    dataType: 'jsonp',
+                    jsonp: 'callback',
+                    success:function(json){
+                    tz.html(json.timezone);
+                    t.html(json.currently.temperature+" °C");
+                },
+                error:function(){
+                    //ErrorHandling
+                },
+                });
+            }
+
+            getLocation();
+    </script>
+    
         <form>
             <input placeholder="Location">
             <button>Search</button>
