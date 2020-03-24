@@ -47,7 +47,7 @@
                     jsonp: 'callback',
                     success:function(json){
                     tz.html(json.timezone);
-                    t.html(json.currently.temperature+" °C");
+                    t.html(Math.ceil(json.currently.temperature)+" °C");
                 },
                 error:function(){
                     //ErrorHandling
